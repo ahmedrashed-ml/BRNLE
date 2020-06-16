@@ -25,10 +25,9 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import roc_auc_score
 
-DIM=60
 USER_NUM = 1005
 ITEM_NUM = 42
-EPOCH_MAX =2001
+EPOCH_MAX =54
 BATCH_SIZE = 1
 NEGSAMPLES=1
 UseUserData=1
@@ -178,7 +177,7 @@ def GetAuxTrainObs(DictUsers):
   return obs  
 
 ####################################
-def EvalMatrix3(UGPredMatrix,UGTrueMatrix):
+def EvalMatrix(UGPredMatrix,UGTrueMatrix):
   UGPredMatrixTmp=np.array(UGPredMatrix, copy=True)  
   UGTrueMatrixTmp=np.array(UGTrueMatrix, copy=True)  
   UGPredMatrixNewListMod=list()
@@ -401,7 +400,7 @@ def inferenceDense(phase,input_batch,relflag, embedding_size=5, device="/cpu:0")
 
 
 
-def svd():
+def Run():
     global TRAINNodes
     global AuxDict
     global MainDict
@@ -472,7 +471,7 @@ def svd():
                     UGEvalMatrix[user][group]=FinalPreds[k]
                     UGTrueMatrix[user][group]=Finallabels[k]
 
-                CorrectEval=EvalMatrix3(UGEvalMatrix,UGTrueMatrix)
+                CorrectEval=EvalMatrix(UGEvalMatrix,UGTrueMatrix)
 
                 MicroF1Score=CorrectEval['MicroF1Score']
                 MacroF1Score=CorrectEval['MacroF1Score']
@@ -504,7 +503,7 @@ def svd():
                     UGEvalMatrix[user][group]=FinalPreds[k]
                     UGTrueMatrix[user][group]=Finallabels[k]
 
-                CorrectEval=EvalMatrix3(UGEvalMatrix,UGTrueMatrix)
+                CorrectEval=EvalMatrix(UGEvalMatrix,UGTrueMatrix)
 
                 MicroF1Score=CorrectEval['MicroF1Score']
                 MacroF1Score=CorrectEval['MacroF1Score']
@@ -518,7 +517,7 @@ def svd():
     return 
 
 
-## Data Gen
+## Data Genneration Step (Uncomment this part if you want to generate new data split)
 '''
 dfgroups=pd.read_csv("../Data/group-edges.csv", sep=',', engine='python')
 dfedges=pd.read_csv("../Data/edges.csv", sep=',', engine='python')
@@ -558,6 +557,5 @@ TRAINDATA=GetTrainData(MainDict)
 print(TRAINDATA.shape)
 print(TESTDATA)
 
-svd()
-#SampleMain=GetMainTrainSample(MainDict)
-#SampleAux=GetAuxTrainSample(AuxDict)
+Run()
+
