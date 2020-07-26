@@ -1,5 +1,5 @@
 # BRNLE
-This is our implementation for the recsys 2019 paper:
+This is our implementation for the SIGKDD 2019 paper:
 
 Rashed, Ahmed, Josif Grabocka, and Lars Schmidt-Thieme. "Multi-Relational Classification via Bayesian Ranked Non-Linear Embeddings." Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery & Data Mining. 2019.
 
